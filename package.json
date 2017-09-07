@@ -1,0 +1,13 @@
+{
+  "name": "@dcos/recordio",
+  "main": "index.js",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1",
+    "jest-cli": "^21.2.1"
+  }
+}
