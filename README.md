@@ -1,5 +1,12 @@
 # RecordIO [![Build Status](https://travis-ci.org/dcos-labs/recordio.svg?branch=master)](https://travis-ci.org/dcos-labs/recordio)
 
+---
+👩‍🔬  Please be aware that this package is still experimental —
+changes to the interface  and underlying implementation are likely,
+and future development or maintenance is not guaranteed.
+
+---
+
 This package provides a function to read records in the RecordIO format from the input string.
 
 ## Usage
