@@ -1,1 +1,1 @@
-module.exports = requre("./src/read");
+module.exports = require("./src/read");
