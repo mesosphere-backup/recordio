@@ -3,7 +3,7 @@
   "description": "Provides a function to read records in the RecordIO format from the input string",
   "author": "Mesosphere DC/OS UI Team",
   "main": "index.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dcos-labs/recordio.git"
