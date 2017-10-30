@@ -1,3 +1,5 @@
+"use strict";
+
 const RECORD_PATTERN = /^\d+\n.+/;
 
 module.exports = function read(input) {

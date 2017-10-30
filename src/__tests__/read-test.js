@@ -1,3 +1,5 @@
+"use strict";
+
 const read = require("../read");
 
 describe("read", function() {
