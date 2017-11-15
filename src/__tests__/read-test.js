@@ -1,6 +1,6 @@
 "use strict";
 
-const read = require("../read");
+var read = require("../read");
 
 describe("read", function() {
   it("returns empty result given an empty input", function() {

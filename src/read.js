@@ -1,24 +1,29 @@
 "use strict";
 
-const RECORD_PATTERN = /^\d+\n.+/;
+var RECORD_PATTERN = /^\d+\n.+/;
 
 module.exports = function read(input) {
-  const records = [];
-  let rest = input;
+  var records = [];
+  var rest = input;
+  var delimiterPosition,
+    recordLength,
+    recordStartPosition,
+    recordEndPosition,
+    record;
 
   while (RECORD_PATTERN.test(rest)) {
-    const delimiterPosition = rest.indexOf("\n");
+    delimiterPosition = rest.indexOf("\n");
 
-    const recordLength = parseInt(rest.substring(0, delimiterPosition), 10);
+    recordLength = parseInt(rest.substring(0, delimiterPosition), 10);
 
-    const recordStartPosition = delimiterPosition + 1;
-    const recordEndPosition = recordStartPosition + recordLength;
+    recordStartPosition = delimiterPosition + 1;
+    recordEndPosition = recordStartPosition + recordLength;
 
     if (isNaN(recordLength) || rest.length < recordEndPosition) {
       return [records, rest];
     }
 
-    const record = rest.substring(recordStartPosition, recordEndPosition);
+    record = rest.substring(recordStartPosition, recordEndPosition);
     rest = rest.substring(recordEndPosition);
 
     records.push(record);
