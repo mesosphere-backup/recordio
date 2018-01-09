@@ -1,5 +1,7 @@
 "use strict";
 
+var copychars = require("@dcos/copychars").default;
+
 var RECORD_PATTERN = /^\d+\n.+/;
 
 module.exports = function read(input) {
@@ -23,7 +25,7 @@ module.exports = function read(input) {
       return [records, rest];
     }
 
-    record = rest.substring(recordStartPosition, recordEndPosition);
+    record = copychars(rest, recordStartPosition, recordLength);
     rest = rest.substring(recordEndPosition);
 
     records.push(record);
