@@ -17,6 +17,6 @@
     "jest-cli": "^21.2.1"
   },
   "dependencies": {
-    "@dcos/copychars": "^0.1.0"
+    "@dcos/copychars": "^0.1.2"
   }
 }
