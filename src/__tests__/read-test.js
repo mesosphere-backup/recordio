@@ -18,6 +18,13 @@ describe("read", function() {
     ]);
   });
 
+  it("returns multiple records with utf8 chars", function() {
+    expect(read("6\n1234ß4\n12343\n123")).toEqual([
+      ["1234ß", "1234", "123"],
+      ""
+    ]);
+  });
+
   it("returns partial records", function() {
     expect(read("5\n1234")).toEqual([[], "5\n1234"]);
   });
