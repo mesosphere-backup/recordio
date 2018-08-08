@@ -25,6 +25,13 @@ describe("read", function() {
     ]);
   });
 
+  it("returns multiple records with utf8 in many messages", function() {
+      expect(read("6\n1234ß5\nß2342\nß")).toEqual([
+          ["1234ß", "ß234", "ß"],
+      ""
+    ]);
+  });
+
   it("returns partial records", function() {
     expect(read("5\n1234")).toEqual([[], "5\n1234"]);
   });

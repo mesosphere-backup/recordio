@@ -5,9 +5,11 @@ var copychars = require("@dcos/copychars").default;
 var RECORD_PATTERN = /^\d+\n.+/;
 
 function countExtraCodepoints(string, start, end) {
+    let length = end;
     let extraCodePoints = 0;
+    let i = 0;
 
-    for(let i = 0; i < end - 1; i++) {
+    while (i < end - 1) {
         let codePoint = string.charCodeAt(start + i);
 
         if (codePoint > 0x7f && codePoint <= 0x7ff) extraCodePoints++;
@@ -36,11 +38,9 @@ module.exports = function read(input) {
     recordStartPosition = delimiterPosition + 1;
     recordEndPosition = recordStartPosition + recordLength;
 
-    //Solves an issue with string.length where a character composed by multiple
-    //codePoints, out of the ASCII range, (e.g. ß) makes us miss the size of the
-    //message.
     byteCorrection = countExtraCodepoints(rest, recordStartPosition, recordEndPosition)
     recordEndPosition -= byteCorrection;
+      
 
     if (isNaN(recordLength) || rest.length < recordEndPosition) {
       return [records, rest];
