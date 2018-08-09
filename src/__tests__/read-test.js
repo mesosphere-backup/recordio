@@ -40,8 +40,8 @@ describe("read", function() {
   });
 
   it("returns multiple records with utf8 and emoji in many messages 2", function() {
-      expect(read("6\n1234ß5\nß23414\n🤷‍♂️.")).toEqual([
-      ["1234ß", "ß234", "🤷‍♂️."],
+    expect(read("16\n🤷‍♂️...6\n1234ß5\nß23414\n🤷‍♂️.")).toEqual([
+      ["🤷‍♂️...","1234ß", "ß234", "🤷‍♂️."],
       ""
     ]);
   });

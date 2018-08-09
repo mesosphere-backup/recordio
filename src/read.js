@@ -5,21 +5,18 @@ var copychars = require("@dcos/copychars").default;
 var RECORD_PATTERN = /^\d+\n.+/;
 
 function countExtraCodepoints(string, start, end) {
-    let extraCodePoints = 0;
+    let correctedLength = end - start;
+    let length = end - start;
+    for (let i = end - start; i >= start; i--) {
+        const codePoint = string.charCodeAt(i);
 
-    for(let i = 0; i < end - 1; i++) {
-        let codePoint = string.charCodeAt(start + i);
+        if (codePoint > 0x7f && codePoint <= 0x7ff) correctedLength++;
+        else if (codePoint > 0x7ff && codePoint <= 0xffff) correctedLength += 2;
 
-        if (codePoint > 0x7f && codePoint <= 0x7ff) extraCodePoints++;
-        else if (codePoint > 0x7ff && codePoint <= 0xffff) extraCodePoints += 1;
-        else if (codePoint > 0xffff) extraCodePoints += 3;
-        else if (isNaN(codePoint) && i != (end - 2)) extraCodePoints += 1;
-        //console.log(codePoint.toString(16));
-        i++;
+        if (codePoint >= 0xDC00 && codePoint <= 0xDFFF) i--;
     }
 
-    // console.log("'"+string.substring(start,end - 1) + "' -> " + extraCodePoints + " (" + start +","+end+")")
-    return extraCodePoints;
+    return correctedLength - length;
 }
 
 module.exports = function read(input) {
@@ -45,12 +42,13 @@ module.exports = function read(input) {
     //message.
     byteCorrection = countExtraCodepoints(rest, recordStartPosition, recordEndPosition)
     recordEndPosition -= byteCorrection;
+    recordLength -= byteCorrection;
 
     if (isNaN(recordLength) || rest.length < recordEndPosition) {
       return [records, rest];
     }
 
-    record = copychars(rest, recordStartPosition, recordLength - byteCorrection);
+    record = copychars(rest, recordStartPosition, recordLength);
     rest = rest.substring(recordEndPosition);
 
     records.push(record);
