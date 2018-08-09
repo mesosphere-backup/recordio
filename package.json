@@ -14,9 +14,11 @@
   },
   "devDependencies": {
     "jest": "^21.2.1",
-    "jest-cli": "^21.2.1"
+    "jest-cli": "^21.2.1",
+    "text-encoding": "^0.6.4"
   },
   "dependencies": {
-    "@dcos/copychars": "^0.1.2"
+    "@dcos/copychars": "^0.1.2",
+    "benchmark": "^2.1.4"
   }
 }

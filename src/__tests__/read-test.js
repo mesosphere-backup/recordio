@@ -18,6 +18,35 @@ describe("read", function() {
     ]);
   });
 
+  it("returns multiple records with utf8 chars", function() {
+    expect(read("6\n1234ß4\n12343\n123")).toEqual([
+      ["1234ß", "1234", "123"],
+      ""
+    ]);
+  });
+
+    it("returns multiple records with utf8 in many messages", function() {
+    expect(read("6\n1234ß5\nß2342\nß")).toEqual([
+      ["1234ß", "ß234", "ß"],
+      ""
+    ]);
+  });
+
+  it("returns multiple records with utf8 and emoji in many messages", function() {
+      expect(read("6\n1234ß6\nß432114\n🤷‍♂️.")).toEqual([
+      ["1234ß", "ß4321", "🤷‍♂️."],
+      ""
+    ]);
+  });
+
+  it("returns multiple records with utf8 and emoji in many messages 2", function() {
+    expect(read("16\n🤷‍♂️...6\n1234ß5\nß23414\n🤷‍♂️.")).toEqual([
+      ["🤷‍♂️...","1234ß", "ß234", "🤷‍♂️."],
+      ""
+    ]);
+  });
+
+
   it("returns partial records", function() {
     expect(read("5\n1234")).toEqual([[], "5\n1234"]);
   });
