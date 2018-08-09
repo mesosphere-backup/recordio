@@ -46,7 +46,6 @@ module.exports = function read(input) {
     byteCorrection = countExtraCodepoints(rest, recordStartPosition, recordEndPosition)
     recordEndPosition -= byteCorrection;
 
-      console.log(byteCorrection)
     if (isNaN(recordLength) || rest.length < recordEndPosition) {
       return [records, rest];
     }
