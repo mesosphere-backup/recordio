@@ -11,10 +11,14 @@ function countExtraCodepoints(string, start, end) {
         let codePoint = string.charCodeAt(start + i);
 
         if (codePoint > 0x7f && codePoint <= 0x7ff) extraCodePoints++;
-
+        else if (codePoint > 0x7ff && codePoint <= 0xffff) extraCodePoints += 1;
+        else if (codePoint > 0xffff) extraCodePoints += 3;
+        else if (isNaN(codePoint) && i != (end - 2)) extraCodePoints += 1;
+        //console.log(codePoint.toString(16));
         i++;
     }
 
+    // console.log("'"+string.substring(start,end - 1) + "' -> " + extraCodePoints + " (" + start +","+end+")")
     return extraCodePoints;
 }
 
@@ -42,11 +46,12 @@ module.exports = function read(input) {
     byteCorrection = countExtraCodepoints(rest, recordStartPosition, recordEndPosition)
     recordEndPosition -= byteCorrection;
 
+      console.log(byteCorrection)
     if (isNaN(recordLength) || rest.length < recordEndPosition) {
       return [records, rest];
     }
 
-    record = (" " + rest.slice(recordStartPosition, recordEndPosition)).slice(1);
+    record = copychars(rest, recordStartPosition, recordLength - byteCorrection);
     rest = rest.substring(recordEndPosition);
 
     records.push(record);
