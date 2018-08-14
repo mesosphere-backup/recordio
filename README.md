@@ -44,3 +44,24 @@ For example, a stream may look like:
 ```
 
 Further documentation can be found in the [Apache Mesos documentation](http://mesos.apache.org/documentation/latest/scheduler-http-api/#recordio-response-format).
+
+## Testing
+
+The implementation is tested with different UTF-8 character sets to verify that it reads the correct number of bytes from the input string.
+
+You can use the following python snippet to create test records from the provided messages array.
+
+```python
+messages = [u"foo", u"bar"]
+
+for message in messages:
+    chars = len(message)
+    size = len(message.encode("utf-8"))
+    print("Message")
+    print("> Chars: %s" % chars)
+    print("> Size: %s" % size)
+    print("> Message: %s" % message)
+    print("> Record: %s\\n%s" % (size, message))
+```
+
+Some of the tests use character sets from the [UTF-8 decoder capability and stress test](https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-test.txt) developed by [Markus Kuhn](http://www.cl.cam.ac.uk/~mgk25/) to ensure that parsing of character with different byte sequences works properly.
